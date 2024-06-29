@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip a Coin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .coin {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            transition: transform 1s ease-in-out;
+        }
+
+        .coin::before,
+        .coin::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #f0f0sf0;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .coin::after {
+            bottom: 0;
+        }
+
+        .coin .result-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .coin.flipped {
+            transform: rotateY(1080deg); /* Three full rotations */
+        }
+
+        .coin.flipped .result-text {
+            opacity: 1;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flip a Coin</h1>
+        <div class="coin" id="coin">
+            <span class="result-text" id="resultText">Flip</span>
+        </div>
+        <button onclick="flipCoin()">Flip Coin</button>
+    </div>
+
+    <script>
+        function flipCoin() {
+            var coin = document.getElementById('coin');
+            var resultText = document.getElementById('resultText');
+
+            coin.classList.remove('heads', 'tails');
+            resultText.textContent = '';
+
+            // Randomly decide heads or tails
+            var random = Math.random();
+            var result = random < 0.5 ? 'heads' : 'tails';
+
+            coin.classList.add(result);
+            resultText.textContent = result.toUpperCase();
+
+            // Trigger animation
+            coin.classList.add('flipped');
+
+            // Reset animation after 4s
+            // setTimeout(function () {
+            //     coin.classList.remove('flipped');
+            // }, 4000);
+          
+          
+        }
+    </script>
+</body>
+</html>
